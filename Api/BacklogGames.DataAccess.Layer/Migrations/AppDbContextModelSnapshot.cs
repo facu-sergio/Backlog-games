@@ -66,7 +66,7 @@ namespace BacklogGames.DataAccess.Layer.Migrations
                         .IsUnique()
                         .HasDatabaseName("IX_Game_IgdbId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("BacklogGames.DataAccess.Layer.Models.GameStatus", b =>
@@ -90,7 +90,7 @@ namespace BacklogGames.DataAccess.Layer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameStatus");
+                    b.ToTable("GameStatus", (string)null);
 
                     b.HasData(
                         new
@@ -132,7 +132,7 @@ namespace BacklogGames.DataAccess.Layer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserList");
+                    b.ToTable("UserList", (string)null);
                 });
 
             modelBuilder.Entity("BacklogGames.DataAccess.Layer.Models.UserListGame", b =>
@@ -157,7 +157,7 @@ namespace BacklogGames.DataAccess.Layer.Migrations
 
                     b.HasIndex("UserListId");
 
-                    b.ToTable("UserListGames");
+                    b.ToTable("UserListGames", (string)null);
                 });
 
             modelBuilder.Entity("BacklogGames.DataAccess.Layer.Models.UserListGame", b =>
