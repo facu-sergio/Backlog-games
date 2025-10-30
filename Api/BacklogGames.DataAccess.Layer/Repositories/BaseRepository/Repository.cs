@@ -22,7 +22,7 @@ namespace BacklogGames.DataAccess.Layer.Repositories.BaseRepository
 
         public async Task AddAsync(T entity)
         {
-            await _dbSet.AddAsync(entity);
+             await _dbSet.AddAsync(entity);
         }
 
         public async Task<T?> GetAsync(int id)

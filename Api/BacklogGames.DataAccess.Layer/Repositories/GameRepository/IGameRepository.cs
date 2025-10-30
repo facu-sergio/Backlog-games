@@ -1,11 +1,10 @@
 using BacklogApp.DataAccess.Layer.Models;
 using BacklogGames.DataAccess.Layer.Repositories.BaseRepository;
 
-namespace BacklogGames.DataAccess.Layer.Repositories
+namespace BacklogGames.DataAccess.Layer.Repositories.GameRepository
 {
     public interface IGameRepository : IRepository<Game>
     {
-        // Métodos específicos para Game (puedes agregar más según necesites)
         Task UpdateAsync(Game game);
     }
 }

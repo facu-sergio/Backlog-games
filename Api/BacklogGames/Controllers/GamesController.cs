@@ -1,4 +1,6 @@
 ﻿using BacklogApp.DataAccess.Layer.Models;
+using BacklogGames.Bussinnes.Layer.DTOs.Game;
+using BacklogGames.Bussinnes.Layer.Services.GameService;
 using BacklogGames.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +11,17 @@ namespace BacklogGames.Controllers
     [TypeFilter(typeof(ExceptionManager))]
     public class GamesController : ControllerBase
     {
-       
-        [HttpGet]
-        public IActionResult GetAll()
+        private readonly IGameService _gameService;
+
+        public GamesController( IGameService gameService)
         {
-            //var response = _gameService.GetAllGames();
-            return StatusCode(StatusCodes.Status200OK, "hola");
+            _gameService = gameService;
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddGame([FromBody] CreateGameDto createGameDto)
+        {
+            var game = await _gameService.AddGame(createGameDto);
+            return StatusCode(StatusCodes.Status201Created, game);
         }
 
        
