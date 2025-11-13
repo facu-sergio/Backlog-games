@@ -80,5 +80,17 @@ namespace BacklogGames.Bussinnes.Layer.Services.UserListService
                 AddedAt = userListGame.AddedAt
             };
         }
+
+        public async Task<ICollection<UserListDTo>> GetAllList()
+        {
+            var list = await _unitOfWork.UserListRepository.GetAllAsync();
+            return list.Select(item => _mapper.Map<UserListDTo>(item)).ToList();
+        }
+
+        public async Task<ICollection<GameDto>> GetGamesByListIdAsync(int listId)
+        {
+            var games = await _unitOfWork.UserListRepository.GetGamesByListIdAsync(listId);
+            return games.Select(game => _mapper.Map<GameDto>(game)).ToList();
+        }
     }
 }
