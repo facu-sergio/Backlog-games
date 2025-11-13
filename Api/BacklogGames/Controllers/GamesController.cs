@@ -17,13 +17,12 @@ namespace BacklogGames.Controllers
         {
             _gameService = gameService;
         }
+
         [HttpPost]
         public async Task<IActionResult> AddGame([FromBody] CreateGameDto createGameDto)
         {
             var game = await _gameService.AddGame(createGameDto);
             return StatusCode(StatusCodes.Status201Created, game);
         }
-
-       
     }
 }
