@@ -8,6 +8,7 @@ using BacklogGames.Bussinnes.Layer;
 using BacklogGames.DataAccess.Layer.Repositories.GameRepository;
 using BacklogGames.DataAccess.Layer.Repositories.UserListRepository;
 using BacklogGames.Bussinnes.Layer.Services.UserListService;
+using BacklogGames.Bussinnes.Layer.Services.IgdbService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,7 @@ builder.Services.AddScoped<IUserListRepository, UserListRepository>();
 //Registrar Services
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IUserListService,UserListService>();// Registrar servicios de negocio
-//builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddHttpClient<IIgdbService, IgdbService>();
 
 // Configurar AutoMapper y otros servicios de negocio
 builder.Services.AddBusinessServices();
