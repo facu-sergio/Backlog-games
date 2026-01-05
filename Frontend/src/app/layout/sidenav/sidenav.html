@@ -1,0 +1,18 @@
+<!-- Componente sidenav -->
+<mat-nav-list>
+  @if (userlist().length > 0) {
+    @for (lista of userlist(); track lista.id) {
+      <a mat-list-item
+         [routerLink]="['/juegos', lista.id]"
+         routerLinkActive="active">
+        <mat-icon matListItemIcon>list</mat-icon>
+        <span matListItemTitle>{{ lista.name }}</span>
+        <span matListItemLine>{{ lista.description }}</span>
+      </a>
+    }
+  } @else {
+    <mat-list-item>
+      <span matListItemTitle>Cargando listas...</span>
+    </mat-list-item>
+  }
+</mat-nav-list>
