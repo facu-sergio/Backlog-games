@@ -1,0 +1,44 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.sidenav-content {
+  width: 100%;
+}
+
+.sidenav-title {
+  margin: 0 0 1rem 0;
+  padding: 0.5rem 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--mat-sys-on-surface);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+mat-nav-list {
+  padding: 0;
+
+  a.mat-mdc-list-item {
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    min-height: 48px;
+
+    &.active {
+      background-color: var(--mat-sys-primary-container);
+      color: var(--mat-sys-on-primary-container);
+
+      mat-icon {
+        color: var(--mat-sys-on-primary-container);
+      }
+    }
+
+    &:hover:not(.active) {
+      background-color: var(--mat-sys-surface-variant);
+    }
+  }
+
+  mat-list-item {
+    min-height: 48px;
+  }
+}
