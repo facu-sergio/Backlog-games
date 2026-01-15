@@ -1,0 +1,30 @@
+<h1>{{ listName() }}</h1>
+
+<div>
+  <h2>Juegos ({{ games().length }})</h2>
+  @for (game of games(); track game.igdbId) {
+     <app-game-card [game]="game"></app-game-card>
+  }
+ 
+ <!-- @if (games().length > 0) {
+    <ul>
+      @for (game of games(); track game.igdbId) {
+        <li>
+          <strong>{{ game.name }}</strong>
+          @if (game.coverUrl) {
+            <br>
+            <img [src]="game.coverUrl" alt="{{ game.name }}" width="100">
+          }
+          @if (game.summary) {
+            <p>{{ game.summary }}</p>
+          }
+          @if (game.rating) {
+            <p>Rating: {{ game.rating }}</p>
+          }
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>No hay juegos en esta lista o cargando...</p>
+  }-->
+</div>
