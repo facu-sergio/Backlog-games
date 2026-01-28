@@ -36,3 +36,11 @@ body {
   height: 100%;
 }
 /* You can add global styles to this file, and also import other style files */
+
+// Ocultar label del buscador cuando tiene focus
+.search-field.mat-focused {
+  .mdc-floating-label,
+  mat-label {
+    display: none !important;
+  }
+}

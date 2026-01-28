@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Agregar juego</h2>
+
+<mat-dialog-content>
+  <div class="game-preview">
+    @if (data.game.coverUrl) {
+      <img [src]="data.game.coverUrl" [alt]="data.game.name" class="game-cover">
+    }
+    <div class="game-details">
+      <span class="game-name">{{ data.game.name }}</span>
+      @if (data.game.firstReleaseDate) {
+        <span class="game-year">{{ data.game.firstReleaseDate * 1000 | date: 'yyyy' }}</span>
+      }
+    </div>
+  </div>
+  <p class="confirm-text">
+    ¿Agregar este juego a la lista <strong>{{ data.listName }}</strong>?
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="onConfirm()">Agregar</button>
+</mat-dialog-actions>
