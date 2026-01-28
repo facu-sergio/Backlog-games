@@ -1,0 +1,38 @@
+.game-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+
+  .game-cover {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .game-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .game-name {
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .game-year {
+      color: #666;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.confirm-text {
+  margin: 0;
+  color: #555;
+}

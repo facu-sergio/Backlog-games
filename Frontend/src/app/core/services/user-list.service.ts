@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { UserList } from '../interfaces/userList.interface';
 import { GamesByListResponse, UserListResponse } from '../interfaces/response.interface';
 import { GameInfo } from '../interfaces/gameInfo.interface';
+import { AddGameToList } from '../interfaces/addGameToList.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -53,5 +54,14 @@ export class UserListService {
     .pipe(
       map(response => response.data)
     )
+  }
+
+  addGameToList(listId: number, game: GameInfo, statusId?: number): Observable<any> {
+    const payload: AddGameToList = {
+      userListId: listId,
+      gameInfo: game,
+      statusId: statusId
+    };
+    return this.http.post(`${this.apiUrl}/UserList/add-game-to-list/${listId}`, payload);
   }
 }
