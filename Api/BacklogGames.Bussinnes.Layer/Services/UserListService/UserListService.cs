@@ -89,14 +89,25 @@ namespace BacklogGames.Bussinnes.Layer.Services.UserListService
 
         public async Task<ICollection<GameDto>> GetGamesByListIdAsync(int listId)
         {
-            var games = await _unitOfWork.UserListRepository.GetGamesByListIdAsync(listId);
-            return games.Select(game => _mapper.Map<GameDto>(game)).ToList();
+            var entries = await _unitOfWork.UserListRepository.GetGamesByListIdAsync(listId);
+            return entries.Select(ulg => new GameDto
+            {
+                Id = ulg.Game.Id,
+                Name = ulg.Game.Name,
+                CoverUrl = ulg.Game.CoverUrl,
+                FirstReleaseDate = ulg.Game.FirstReleaseDate,
+                Summary = ulg.Game.Summary,
+                Rating = ulg.Game.Rating,
+                CreatedAt = ulg.Game.CreatedAt,
+                UpdatedAt = ulg.Game.UpdatedAt,
+                GameStatusId = ulg.GameStatusId,
+                GameStatusName = ulg.GameStatus.Name
+            }).ToList();
         }
 
-        public async Task<UserListGameResponseDto> MarkGameAsCompletedAsync(int listId, int gameId, DateTime? completedAt)
+        public async Task<UserListGameResponseDto> UpdateGameStatusAsync(int listId, int gameId, UpdateGameStatusDto dto)
         {
-            var date = completedAt?.ToUniversalTime() ?? DateTime.UtcNow;
-            await _unitOfWork.UserListGameRepository.MarkAsCompletedAsync(gameId, listId, date);
+            await _unitOfWork.UserListGameRepository.UpdateGameStatusAsync(gameId, listId, dto.StatusId, dto.CompletedAt);
 
             var entry = await _unitOfWork.UserListGameRepository.GetFirstOrDefaultAsync(
                 ulg => ulg.GameId == gameId && ulg.UserListId == listId,
