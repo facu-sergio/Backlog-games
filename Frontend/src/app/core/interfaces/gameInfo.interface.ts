@@ -1,4 +1,4 @@
-import { GameStatus } from '../../components/game-card/game-card';
+import { GameStatus } from './game-status.type';
 
 export interface GameInfo {
   id?: number;

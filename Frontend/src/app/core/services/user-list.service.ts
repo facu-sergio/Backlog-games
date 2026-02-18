@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import { UserList } from '../interfaces/userList.interface';
 import { GamesByListResponse, UserListResponse } from '../interfaces/response.interface';
 import { GameInfo } from '../interfaces/gameInfo.interface';
+import { GameStatus } from '../interfaces/game-status.type';
 import { AddGameToList } from '../interfaces/addGameToList.interface';
 
 @Injectable({
@@ -49,11 +50,22 @@ export class UserListService {
     return this.http.get<UserListResponse>(`${this.apiUrl}/UserList`);
   }
 
-  getGamesByListId(idList:number): Observable<GameInfo[]>{
+  private readonly STATUS_NORMALIZE: Record<string, GameStatus> = {
+    'Pendiente': 'pendiente',
+    'En Progreso': 'en-progreso',
+    'Completado': 'completado',
+  };
+
+  private normalizeGames(games: GameInfo[]): GameInfo[] {
+    return games.map(g => ({
+      ...g,
+      gameStatusName: this.STATUS_NORMALIZE[g.gameStatusName as unknown as string] ?? 'pendiente',
+    }));
+  }
+
+  getGamesByListId(idList: number): Observable<GameInfo[]> {
     return this.http.get<GamesByListResponse>(`${this.apiUrl}/UserList/${idList}/with-games`)
-    .pipe(
-      map(response => response.data)
-    )
+      .pipe(map(response => this.normalizeGames(response.data)));
   }
 
   addGameToList(listId: number, game: GameInfo, statusId?: number): Observable<any> {
@@ -63,6 +75,12 @@ export class UserListService {
       statusId: statusId
     };
     return this.http.post(`${this.apiUrl}/UserList/add-game-to-list/${listId}`, payload);
+  }
+
+  getCompletedGames(year?: number): Observable<GameInfo[]> {
+    const params = year ? `?year=${year}` : '';
+    return this.http.get<GamesByListResponse>(`${this.apiUrl}/UserList/completed-games${params}`)
+      .pipe(map(response => this.normalizeGames(response.data)));
   }
 
   updateGameStatus(listId: number, gameId: number, statusId: number, completedAt?: string): Observable<any> {

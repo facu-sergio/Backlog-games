@@ -1,5 +1,12 @@
 <!-- Componente sidenav -->
 <mat-nav-list>
+  <a mat-list-item routerLink="/completados" routerLinkActive="active">
+    <mat-icon matListItemIcon>check_circle</mat-icon>
+    <span matListItemTitle>Completados</span>
+  </a>
+
+  <mat-divider></mat-divider>
+
   @if (userlist().length > 0) {
     @for (lista of userlist(); track lista.id) {
       <a mat-list-item

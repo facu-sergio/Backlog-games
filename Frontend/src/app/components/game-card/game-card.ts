@@ -2,8 +2,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { GameInfo } from '../../core/interfaces/gameInfo.interface';
+import { GameStatus } from '../../core/interfaces/game-status.type';
 
-export type GameStatus = 'pendiente' | 'en-progreso' | 'completado';
 
 @Component({
   selector: 'app-game-card',

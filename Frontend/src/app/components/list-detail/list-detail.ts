@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddGameDialogComponent } from '../add-game-dialog/add-game-dialog';
 import { CompleteGameDialogComponent } from '../complete-game-dialog/complete-game-dialog';
 import { GameInfo } from '../../core/interfaces/gameInfo.interface';
-import { GameStatus } from '../game-card/game-card';
+import { GameStatus } from '../../core/interfaces/game-status.type';
 
 @Component({
   selector: 'app-list-detail',
