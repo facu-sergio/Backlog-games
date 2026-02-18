@@ -92,5 +92,42 @@ namespace BacklogGames.Bussinnes.Layer.Services.UserListService
             var games = await _unitOfWork.UserListRepository.GetGamesByListIdAsync(listId);
             return games.Select(game => _mapper.Map<GameDto>(game)).ToList();
         }
+
+        public async Task<UserListGameResponseDto> MarkGameAsCompletedAsync(int listId, int gameId, DateTime? completedAt)
+        {
+            var date = completedAt?.ToUniversalTime() ?? DateTime.UtcNow;
+            await _unitOfWork.UserListGameRepository.MarkAsCompletedAsync(gameId, listId, date);
+
+            var entry = await _unitOfWork.UserListGameRepository.GetFirstOrDefaultAsync(
+                ulg => ulg.GameId == gameId && ulg.UserListId == listId,
+                includeProperties: "Game,UserList");
+
+            return new UserListGameResponseDto
+            {
+                GameId = entry!.GameId,
+                GameName = entry.Game.Name,
+                UserListId = entry.UserListId,
+                UserListName = entry.UserList.Name,
+                StatusId = entry.GameStatusId,
+                StatusName = ((GameProgressStatus)entry.GameStatusId).ToString(),
+                AddedAt = entry.AddedAt,
+                CompletedAt = entry.CompletedAt
+            };
+        }
+
+        public async Task<ICollection<CompletedGameDto>> GetCompletedGamesByYearAsync(int year)
+        {
+            var entries = await _unitOfWork.UserListGameRepository.GetCompletedByYearAsync(year);
+            return entries.Select(ulg => new CompletedGameDto
+            {
+                GameId = ulg.GameId,
+                GameName = ulg.Game.Name,
+                CoverUrl = ulg.Game.CoverUrl,
+                Rating = ulg.Game.Rating,
+                UserListId = ulg.UserListId,
+                UserListName = ulg.UserList.Name,
+                CompletedAt = ulg.CompletedAt!.Value
+            }).ToList();
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace BacklogGames.DataAccess.Layer.Models
         public int GameStatusId { get; set; } = (int)GameProgressStatus.Pendiente;
         public GameStatus GameStatus { get; set; } = null!;
         public DateTime AddedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? CompletedAt { get; set; }
 
     }
 }

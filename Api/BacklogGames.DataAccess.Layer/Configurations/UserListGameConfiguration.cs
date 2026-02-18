@@ -35,6 +35,9 @@ namespace BacklogGames.DataAccess.Layer.Configurations
             entity.Property(ulg => ulg.GameStatusId)
                   .IsRequired()
                   .HasDefaultValue((int)GameProgressStatus.Pendiente);
+
+            entity.Property(ulg => ulg.CompletedAt)
+                  .IsRequired(false);
         }
     }
 }
