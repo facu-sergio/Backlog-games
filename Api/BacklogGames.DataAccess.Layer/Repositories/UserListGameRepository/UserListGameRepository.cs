@@ -27,7 +27,7 @@ namespace BacklogGames.DataAccess.Layer.Repositories.UserListGameRepository
                 ?? throw new Exception($"No se encontró el juego {gameId} en la lista {listId}.");
 
             entry.GameStatusId = statusId;
-            entry.CompletedAt = statusId == (int)GameProgressStatus.Terminado
+            entry.CompletedAt = statusId == (int)GameStatusEnum.Completado
                 ? completedAt?.ToUniversalTime() ?? DateTime.UtcNow
                 : null;
 
@@ -39,7 +39,7 @@ namespace BacklogGames.DataAccess.Layer.Repositories.UserListGameRepository
             return await _context.UserListGames
                 .Include(ulg => ulg.Game)
                 .Include(ulg => ulg.UserList)
-                .Where(ulg => ulg.GameStatusId == (int)GameProgressStatus.Terminado
+                .Where(ulg => ulg.GameStatusId == (int)GameStatusEnum.Completado
                            && ulg.CompletedAt.HasValue
                            && ulg.CompletedAt.Value.Year == year)
                 .ToListAsync();

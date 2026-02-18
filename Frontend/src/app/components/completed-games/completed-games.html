@@ -1,0 +1,29 @@
+<div class="completed-header">
+  <h1>Juegos completados</h1>
+
+  <div class="year-selector">
+    <button (click)="loadGames(selectedYear() - 1)">&#8249;</button>
+    <span>{{ selectedYear() }}</span>
+    <button (click)="loadGames(selectedYear() + 1)" [disabled]="selectedYear() >= currentYear">&#8250;</button>
+  </div>
+</div>
+
+<div class="games-section">
+  <h2>
+    Juegos
+    <span class="count">{{ games().length }}</span>
+  </h2>
+
+  @if (errorMessage()) {
+    <div class="alert-empty">
+      <mat-icon>info</mat-icon>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  } @else if (games().length > 0) {
+    <div class="games-grid">
+      @for (game of games(); track game.id) {
+        <app-game-card [game]="game" [status]="'completado'"></app-game-card>
+      }
+    </div>
+  }
+</div>

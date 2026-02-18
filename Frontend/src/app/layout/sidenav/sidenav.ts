@@ -3,6 +3,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { UserListService } from '../../core/services/user-list.service';
 import { RouterLink } from '@angular/router';
@@ -15,6 +16,7 @@ import { RouterLink } from '@angular/router';
     MatListModule,
     MatIconModule,
     MatButtonModule,
+    MatDividerModule,
     RouterLink
   ],
   templateUrl: './sidenav.html',
