@@ -9,5 +9,7 @@ namespace BacklogGames.Bussinnes.Layer.Services.UserListService
         Task<UserListGameResponseDto> AddGameToListAsync(AddGameToListDto addGameToListDto);
         Task<ICollection<UserListDTo>> GetAllList();
         Task<ICollection<GameDto>> GetGamesByListIdAsync(int listId);
+        Task<UserListGameResponseDto> MarkGameAsCompletedAsync(int listId, int gameId, DateTime? completedAt);
+        Task<ICollection<CompletedGameDto>> GetCompletedGamesByYearAsync(int year);
     }
 }

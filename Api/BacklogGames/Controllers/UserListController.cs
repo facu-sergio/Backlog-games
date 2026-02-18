@@ -56,5 +56,28 @@ namespace BacklogGames.Controllers
             var gameAdded = await _userListService.AddGameToListAsync(dto);
             return StatusCode(StatusCodes.Status201Created, gameAdded);
         }
+
+        [HttpPatch("{listId:int}/games/{gameId:int}/complete")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> MarkGameAsCompleted(int listId, int gameId, [FromBody] DateTime? completedAt)
+        {
+            var result = await _userListService.MarkGameAsCompletedAsync(listId, gameId, completedAt);
+            return Ok(ResponseApiService.Response(200, result, "Juego marcado como completado correctamente."));
+        }
+
+        [HttpGet("completed-games")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetCompletedGamesByYear([FromQuery] int year)
+        {
+            var games = await _userListService.GetCompletedGamesByYearAsync(year);
+            if (games == null || !games.Any())
+                return NotFound(ResponseApiService.Response(404, null, $"No se encontraron juegos completados en {year}."));
+
+            return Ok(ResponseApiService.Response(200, games, $"Juegos completados en {year} obtenidos correctamente."));
+        }
     }
 }

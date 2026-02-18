@@ -9,5 +9,6 @@
         public int StatusId { get; set; }
         public string StatusName { get; set; } = string.Empty;
         public DateTime AddedAt { get; set; }
+        public DateTime? CompletedAt { get; set; }
     }
 }
