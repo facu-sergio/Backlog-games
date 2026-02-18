@@ -107,19 +107,33 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: #f3f4f6;
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
-  color: #6b7280;
-  transition: background 0.2s ease;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 
   svg {
     flex-shrink: 0;
   }
 
-  &:hover {
-    background: #e5e7eb;
+  &--pendiente {
+    background: #f3f4f6;
+    color: #6b7280;
+    &:hover { background: #e5e7eb; }
+  }
+
+  &--en-progreso {
+    background: #eff6ff;
+    color: #3b82f6;
+    &:hover { background: #dbeafe; }
+  }
+
+  &--completado {
+    background: #f0fdf4;
+    color: #16a34a;
+    &:hover { background: #dcfce7; }
   }
 }
 

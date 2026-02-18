@@ -64,4 +64,10 @@ export class UserListService {
     };
     return this.http.post(`${this.apiUrl}/UserList/add-game-to-list/${listId}`, payload);
   }
+
+  updateGameStatus(listId: number, gameId: number, statusId: number, completedAt?: string): Observable<any> {
+    const body: { statusId: number; completedAt?: string } = { statusId };
+    if (completedAt) body.completedAt = completedAt;
+    return this.http.patch(`${this.apiUrl}/UserList/${listId}/games/${gameId}/status`, body);
+  }
 }
