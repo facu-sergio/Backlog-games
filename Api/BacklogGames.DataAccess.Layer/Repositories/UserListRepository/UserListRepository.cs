@@ -14,11 +14,12 @@ namespace BacklogGames.DataAccess.Layer.Repositories.UserListRepository
             _context = context;
         }
 
-        public async Task<IEnumerable<Game>> GetGamesByListIdAsync(int listId)
+        public async Task<IEnumerable<UserListGame>> GetGamesByListIdAsync(int listId)
         {
             return await _context.UserListGames
+                .Include(x => x.Game)
+                .Include(x => x.GameStatus)
                 .Where(x => x.UserListId == listId)
-                .Select(x => x.Game)
                 .ToListAsync();
         }
 

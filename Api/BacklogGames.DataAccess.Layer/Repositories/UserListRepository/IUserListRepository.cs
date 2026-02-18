@@ -7,6 +7,6 @@ namespace BacklogGames.DataAccess.Layer.Repositories.UserListRepository
     public interface IUserListRepository : IRepository<UserList>
     {
         Task UpdateNameAsync(int id, string name);
-        Task<IEnumerable<Game>> GetGamesByListIdAsync(int listId);
+        Task<IEnumerable<UserListGame>> GetGamesByListIdAsync(int listId);
     }
 }

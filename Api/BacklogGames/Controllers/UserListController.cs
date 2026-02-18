@@ -1,5 +1,6 @@
 ﻿using BacklogApp.Bussines.layer.Services;
 using BacklogGames.Bussinnes.Layer.DTOs.Game;
+using BacklogGames.Bussinnes.Layer.DTOs.UserList;
 using BacklogGames.Bussinnes.Layer.Services.UserListService;
 using BacklogGames.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -57,14 +58,14 @@ namespace BacklogGames.Controllers
             return StatusCode(StatusCodes.Status201Created, gameAdded);
         }
 
-        [HttpPatch("{listId:int}/games/{gameId:int}/complete")]
+        [HttpPatch("{listId:int}/games/{gameId:int}/status")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> MarkGameAsCompleted(int listId, int gameId, [FromBody] DateTime? completedAt)
+        public async Task<IActionResult> UpdateGameStatus(int listId, int gameId, [FromBody] UpdateGameStatusDto dto)
         {
-            var result = await _userListService.MarkGameAsCompletedAsync(listId, gameId, completedAt);
-            return Ok(ResponseApiService.Response(200, result, "Juego marcado como completado correctamente."));
+            var result = await _userListService.UpdateGameStatusAsync(listId, gameId, dto);
+            return Ok(ResponseApiService.Response(200, result, "Estado del juego actualizado correctamente."));
         }
 
         [HttpGet("completed-games")]

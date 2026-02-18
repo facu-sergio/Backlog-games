@@ -20,14 +20,17 @@ namespace BacklogGames.DataAccess.Layer.Repositories.UserListGameRepository
             throw new NotImplementedException();
         }
 
-        public async Task MarkAsCompletedAsync(int gameId, int listId, DateTime completedAt)
+        public async Task UpdateGameStatusAsync(int gameId, int listId, int statusId, DateTime? completedAt)
         {
             var entry = await _context.UserListGames
                 .FirstOrDefaultAsync(ulg => ulg.GameId == gameId && ulg.UserListId == listId)
                 ?? throw new Exception($"No se encontró el juego {gameId} en la lista {listId}.");
 
-            entry.GameStatusId = (int)GameProgressStatus.Terminado;
-            entry.CompletedAt = completedAt;
+            entry.GameStatusId = statusId;
+            entry.CompletedAt = statusId == (int)GameProgressStatus.Terminado
+                ? completedAt?.ToUniversalTime() ?? DateTime.UtcNow
+                : null;
+
             await _context.SaveChangesAsync();
         }
 
