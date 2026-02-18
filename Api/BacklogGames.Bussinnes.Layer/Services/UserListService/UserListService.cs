@@ -62,7 +62,7 @@ namespace BacklogGames.Bussinnes.Layer.Services.UserListService
             {
                 GameId = game.Id,
                 UserListId = dto.UserListId,
-                GameStatusId = dto.StatusId ?? (int)GameProgressStatus.Pendiente,
+                GameStatusId = dto.StatusId ?? (int)GameStatusEnum.Pendiente,
                 AddedAt = DateTime.UtcNow
             };
 
@@ -76,7 +76,7 @@ namespace BacklogGames.Bussinnes.Layer.Services.UserListService
                 UserListId = userList.Id,
                 UserListName = userList.Name,
                 StatusId = userListGame.GameStatusId,
-                StatusName = ((GameProgressStatus)userListGame.GameStatusId).ToString(),
+                StatusName = ((GameStatusEnum)userListGame.GameStatusId).ToString(),
                 AddedAt = userListGame.AddedAt
             };
         }
@@ -120,7 +120,7 @@ namespace BacklogGames.Bussinnes.Layer.Services.UserListService
                 UserListId = entry.UserListId,
                 UserListName = entry.UserList.Name,
                 StatusId = entry.GameStatusId,
-                StatusName = ((GameProgressStatus)entry.GameStatusId).ToString(),
+                StatusName = ((GameStatusEnum)entry.GameStatusId).ToString(),
                 AddedAt = entry.AddedAt,
                 CompletedAt = entry.CompletedAt
             };

@@ -1,5 +1,6 @@
-﻿using BacklogApp.DataAccess.Layer.Models;
+﻿
 using BacklogGames.DataAccess.Layer.Data;
+using BacklogGames.DataAccess.Layer.Enums;
 using BacklogGames.DataAccess.Layer.Models;
 using BacklogGames.DataAccess.Layer.Repositories.BaseRepository;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace BacklogGames.DataAccess.Layer.Repositories.UserListRepository
                 .Include(x => x.Game)
                 .Include(x => x.GameStatus)
                 .Where(x => x.UserListId == listId)
+                .Where(x => x.GameStatusId != (int)GameStatusEnum.Completado)
                 .ToListAsync();
         }
 
