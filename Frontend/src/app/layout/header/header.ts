@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
+import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
-import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-header',
-  imports: [MatIcon],
+  imports: [MatIcon, RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

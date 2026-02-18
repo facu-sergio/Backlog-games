@@ -17,6 +17,13 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
   
   .brand-icon {
     width: 48px;

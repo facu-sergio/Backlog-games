@@ -1,0 +1,18 @@
+<a class="list-card" [routerLink]="['/juegos', list.id]">
+  <div class="thumbnail-container">
+    <div class="cards-stack">
+      @for (game of visibleGames; track $index; let i = $index) {
+        <div class="card-item" [class.empty]="!game">
+          @if (game) {
+            <img [src]="game.coverUrl || getDefaultCover()" [alt]="game.name">
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="list-info">
+    <h3 class="list-name">{{ list.name }}</h3>
+    <span class="games-count">{{ gamesCount }} {{ gamesCount === 1 ? 'Game' : 'Games' }}</span>
+  </div>
+</a>

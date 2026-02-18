@@ -1,0 +1,20 @@
+<div class="home-container">
+  <header class="home-header">
+    <h1>La Pila de la Vergüenza</h1>
+    <p class="subtitle">Esos juegos que juraste terminar... algún día</p>
+  </header>
+
+  <div class="lists-grid">
+    @for (list of userLists(); track list.id) {
+      <app-list-card
+        [list]="list"
+        [games]="getGamesForList(list.id)">
+      </app-list-card>
+    } @empty {
+      <div class="empty-state">
+        <span class="empty-icon">📋</span>
+        <p>No lists yet. Create your first list!</p>
+      </div>
+    }
+  </div>
+</div>
