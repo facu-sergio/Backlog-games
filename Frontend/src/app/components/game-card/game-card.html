@@ -22,12 +22,24 @@
       <span class="year" *ngIf="getFormattedYear()">{{ getFormattedYear() }}</span>
     </div>
 
-    <div class="status-badge">
+    <button class="status-badge status-badge--{{ status }}"
+            [matMenuTriggerFor]="statusMenu"
+            (click)="$event.stopPropagation()">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
         <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2"/>
         <path d="M8 4v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
-      <span>Pendiente</span>
-    </div>
+      <span>{{ getStatusLabel() }}</span>
+    </button>
+
+    <mat-menu #statusMenu="matMenu">
+      @for (option of statusOptions; track option.value) {
+        @if (option.value !== status) {
+          <button mat-menu-item (click)="onStatusChange(option.value)">
+            {{ option.label }}
+          </button>
+        }
+      }
+    </mat-menu>
   </div>
 </div>

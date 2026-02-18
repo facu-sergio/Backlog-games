@@ -1,6 +1,6 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { map, switchMap, debounceTime, distinctUntilChanged, filter } from 'rxjs';
 import { UserListService } from '../../core/services/user-list.service';
 import { GameService } from '../../core/services/game.service';
@@ -12,7 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
 import { AddGameDialogComponent } from '../add-game-dialog/add-game-dialog';
+import { CompleteGameDialogComponent } from '../complete-game-dialog/complete-game-dialog';
 import { GameInfo } from '../../core/interfaces/gameInfo.interface';
+import { GameStatus } from '../game-card/game-card';
 
 @Component({
   selector: 'app-list-detail',
@@ -50,13 +52,15 @@ export class ListDetailComponent {
   listName = computed(() => this.currentList()?.name ?? 'Cargando...');
 
   // Obtiene los juegos de la lista
-  games = toSignal(
+  games = signal<GameInfo[]>([]);
+
+  constructor() {
     this.route.paramMap.pipe(
       map(params => Number(params.get('id'))),
-      switchMap(id => this.userListSv.getGamesByListId(id))
-    ),
-    { initialValue: [] }
-  );
+      switchMap(id => this.userListSv.getGamesByListId(id)),
+      takeUntilDestroyed()
+    ).subscribe(games => this.games.set(games));
+  }
 
   // Control del buscador
   searchControl = new FormControl('');
@@ -73,8 +77,42 @@ export class ListDetailComponent {
   );
 
   // Función para mostrar el nombre del juego en el input cuando se selecciona
-  displayGame(game: any): string {
-    return game && game.name ? game.name : '';
+  displayGame(game: GameInfo | string): string {
+    return typeof game === 'string' ? game : (game?.name ?? '');
+  }
+
+  onStatusChange(game: GameInfo, status: GameStatus): void {
+    const STATUS_ID_MAP: Record<GameStatus, number> = {
+      'pendiente': 1,
+      'en-progreso': 2,
+      'completado': 3,
+    };
+
+    if (status === 'completado') {
+      const dialogRef = this.dialog.open(CompleteGameDialogComponent, {
+        width: '400px',
+        data: { game }
+      });
+
+      dialogRef.afterClosed().subscribe(confirmed => {
+        if (confirmed) {
+          this.callUpdateStatus(game, status, STATUS_ID_MAP[status], new Date().toISOString());
+        }
+      });
+    } else {
+      this.callUpdateStatus(game, status, STATUS_ID_MAP[status]);
+    }
+  }
+
+  private callUpdateStatus(game: GameInfo, status: GameStatus, statusId: number, completedAt?: string): void {
+    const listId = this.listId();
+    if (!listId) return;
+    this.userListSv.updateGameStatus(listId, game.id!, statusId, completedAt).subscribe({
+      next: () => this.games.update(list =>
+        list.map(g => g.id === game.id ? { ...g, gameStatusId: statusId, gameStatusName: status } : g)
+      ),
+      error: err => console.error('Error al actualizar estado:', err)
+    });
   }
 
   // Manejar la selección de un juego del autocomplete

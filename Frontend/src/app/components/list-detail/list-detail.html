@@ -52,8 +52,8 @@
   </h2>
   @if (games().length > 0) {
     <div class="games-grid">
-      @for (game of games(); track game.igdbId) {
-        <app-game-card [game]="game"></app-game-card>
+      @for (game of games(); track game.id) {
+        <app-game-card [game]="game" [status]="game.gameStatusName ?? 'pendiente'" (statusChange)="onStatusChange(game, $event)"></app-game-card>
       }
     </div>
   } @else {
