@@ -22,7 +22,7 @@
   } @else if (games().length > 0) {
     <div class="games-grid">
       @for (game of games(); track game.id) {
-        <app-game-card [game]="game" [status]="'completado'"></app-game-card>
+        <app-game-card [game]="game" [status]="game.gameStatusName ?? 'completado'" (statusChange)="onStatusChange(game, $event)"></app-game-card>
       }
     </div>
   }
