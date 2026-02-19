@@ -5,6 +5,7 @@ import { GameInfo } from '../../core/interfaces/gameInfo.interface';
 
 export interface CompleteGameDialogData {
   game: GameInfo;
+  statusLabel: string;
 }
 
 @Component({
