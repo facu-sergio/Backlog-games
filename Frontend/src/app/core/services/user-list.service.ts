@@ -83,6 +83,17 @@ export class UserListService {
       .pipe(map(response => this.normalizeGames(response.data)));
   }
 
+  createList(name: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/UserList`, JSON.stringify(name), {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      map(res => {
+        this.loadUserLists();
+        return res;
+      })
+    );
+  }
+
   updateGameStatus(listId: number, gameId: number, statusId: number, completedAt?: string): Observable<any> {
     const body: { statusId: number; completedAt?: string } = { statusId };
     if (completedAt) body.completedAt = completedAt;

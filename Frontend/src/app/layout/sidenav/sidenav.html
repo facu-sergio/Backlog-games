@@ -7,6 +7,22 @@
 
   <mat-divider></mat-divider>
 
+  <button mat-button class="add-list-btn" (click)="toggleInput()">
+    <mat-icon>add</mat-icon>
+    Agregar lista
+  </button>
+
+  @if (showInput()) {
+    <div class="new-list-input">
+      <input [formControl]="newListName" placeholder="Ej: Shooters FPS" (keyup.enter)="confirmCreate()" />
+      <button class="confirm-btn" (click)="confirmCreate()">
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+  }
+
+  <p class="lists-title">Mis Listas</p>
+
   @if (userlist().length > 0) {
     @for (lista of userlist(); track lista.id) {
       <a mat-list-item

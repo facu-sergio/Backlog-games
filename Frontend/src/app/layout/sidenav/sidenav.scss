@@ -1,6 +1,7 @@
 :host {
   display: block;
   width: 100%;
+  overflow-x: hidden;
 }
 
 .sidenav-content {
@@ -14,6 +15,66 @@
   font-weight: 600;
   color: var(--mat-sys-on-surface);
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.lists-title {
+  margin: 8px 4px 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.add-list-btn {
+  width: 100%;
+  justify-content: flex-start;
+  margin-bottom: 4px;
+  color: var(--mat-sys-primary);
+  font-size: 13px;
+}
+
+.new-list-input {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 4px 8px;
+  box-sizing: border-box;
+  width: 100%;
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: var(--mat-sys-primary);
+    }
+  }
+
+  .confirm-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: var(--mat-sys-primary);
+    color: white;
+    cursor: pointer;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
 }
 
 mat-nav-list {

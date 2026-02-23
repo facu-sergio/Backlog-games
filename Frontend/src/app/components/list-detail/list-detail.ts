@@ -1,7 +1,7 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { map, switchMap, debounceTime, distinctUntilChanged, filter } from 'rxjs';
+import { map, switchMap, debounceTime, distinctUntilChanged, filter, catchError, of } from 'rxjs';
 import { UserListService } from '../../core/services/user-list.service';
 import { GameService } from '../../core/services/game.service';
 import { CommonModule } from '@angular/common';
@@ -57,7 +57,9 @@ export class ListDetailComponent {
   constructor() {
     this.route.paramMap.pipe(
       map(params => Number(params.get('id'))),
-      switchMap(id => this.userListSv.getGamesByListId(id)),
+      switchMap(id => this.userListSv.getGamesByListId(id).pipe(
+        catchError(() => of([]))
+      )),
       takeUntilDestroyed()
     ).subscribe(games => this.games.set(games));
   }
