@@ -131,12 +131,14 @@ namespace BacklogGames.Bussinnes.Layer.Services.UserListService
             var entries = await _unitOfWork.UserListGameRepository.GetCompletedByYearAsync(year);
             return entries.Select(ulg => new CompletedGameDto
             {
-                GameId = ulg.GameId,
+                Id = ulg.GameId,
                 GameName = ulg.Game.Name,
                 CoverUrl = ulg.Game.CoverUrl,
                 Rating = ulg.Game.Rating,
                 UserListId = ulg.UserListId,
                 UserListName = ulg.UserList.Name,
+                StatusId = ulg.GameStatusId,
+                StatusName = ((GameStatusEnum)ulg.GameStatusId).ToString(),
                 CompletedAt = ulg.CompletedAt!.Value
             }).ToList();
         }

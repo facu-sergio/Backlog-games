@@ -57,10 +57,13 @@ export class UserListService {
   };
 
   private normalizeGames(games: GameInfo[]): GameInfo[] {
-    return games.map(g => ({
-      ...g,
-      gameStatusName: this.STATUS_NORMALIZE[g.gameStatusName as unknown as string] ?? 'pendiente',
-    }));
+    return games.map(g => {
+      const rawStatus = (g.gameStatusName ?? (g as any).statusName) as string;
+      return {
+        ...g,
+        gameStatusName: this.STATUS_NORMALIZE[rawStatus] ?? 'pendiente',
+      };
+    });
   }
 
   getGamesByListId(idList: number): Observable<GameInfo[]> {

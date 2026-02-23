@@ -83,27 +83,30 @@ export class ListDetailComponent {
     return typeof game === 'string' ? game : (game?.name ?? '');
   }
 
+  private readonly STATUS_ID_MAP: Record<GameStatus, number> = {
+    'pendiente': 1,
+    'en-progreso': 2,
+    'completado': 3,
+  };
+
+  private readonly STATUS_LABEL_MAP: Record<GameStatus, string> = {
+    'pendiente': 'Pendiente',
+    'en-progreso': 'En Progreso',
+    'completado': 'Completado',
+  };
+
   onStatusChange(game: GameInfo, status: GameStatus): void {
-    const STATUS_ID_MAP: Record<GameStatus, number> = {
-      'pendiente': 1,
-      'en-progreso': 2,
-      'completado': 3,
-    };
+    const dialogRef = this.dialog.open(CompleteGameDialogComponent, {
+      width: '400px',
+      data: { game, statusLabel: this.STATUS_LABEL_MAP[status] }
+    });
 
-    if (status === 'completado') {
-      const dialogRef = this.dialog.open(CompleteGameDialogComponent, {
-        width: '400px',
-        data: { game }
-      });
-
-      dialogRef.afterClosed().subscribe(confirmed => {
-        if (confirmed) {
-          this.callUpdateStatus(game, status, STATUS_ID_MAP[status], new Date().toISOString());
-        }
-      });
-    } else {
-      this.callUpdateStatus(game, status, STATUS_ID_MAP[status]);
-    }
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        const completedAt = status === 'completado' ? new Date().toISOString() : undefined;
+        this.callUpdateStatus(game, status, this.STATUS_ID_MAP[status], completedAt);
+      }
+    });
   }
 
   private callUpdateStatus(game: GameInfo, status: GameStatus, statusId: number, completedAt?: string): void {
@@ -111,7 +114,9 @@ export class ListDetailComponent {
     if (!listId) return;
     this.userListSv.updateGameStatus(listId, game.id!, statusId, completedAt).subscribe({
       next: () => this.games.update(list =>
-        list.map(g => g.id === game.id ? { ...g, gameStatusId: statusId, gameStatusName: status } : g)
+        status === 'completado'
+          ? list.filter(g => g.id !== game.id)
+          : list.map(g => g.id === game.id ? { ...g, gameStatusId: statusId, gameStatusName: status } : g)
       ),
       error: err => console.error('Error al actualizar estado:', err)
     });
