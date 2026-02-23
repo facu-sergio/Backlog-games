@@ -2,10 +2,12 @@
 using BacklogGames.Bussinnes.Layer.DTOs.Game;
 using BacklogGames.Bussinnes.Layer.Services.IgdbService;
 using BacklogGames.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BacklogGames.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     [TypeFilter(typeof(ExceptionManager))]

@@ -12,6 +12,7 @@ namespace BacklogGames.DataAccess.Layer.Data
         public DbSet<UserList> UserList { get; set; }
         public DbSet<UserListGame> UserListGames { get; set; }
         public DbSet<GameStatus> GameStatus { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -23,7 +24,8 @@ namespace BacklogGames.DataAccess.Layer.Data
             modelBuilder.ApplyConfiguration(new UserListConfiguration());
             modelBuilder.ApplyConfiguration(new UserListGameConfiguration());
             modelBuilder.ApplyConfiguration(new GameStatusConfiguration());
-            base.OnModelCreating(modelBuilder); 
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
