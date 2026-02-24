@@ -19,5 +19,9 @@ namespace BacklogGames.Bussinnes.Layer.DTOs.Game
         public double? Rating { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        public int? HastilySeconds { get; set; }
+        public int? NormallySeconds { get; set; }
+        public int? CompletelySeconds { get; set; }
+        public int? TimeToBeatCount { get; set; }
     }
 }

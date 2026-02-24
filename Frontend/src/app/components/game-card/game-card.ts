@@ -3,11 +3,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { GameInfo } from '../../core/interfaces/gameInfo.interface';
 import { GameStatus } from '../../core/interfaces/game-status.type';
+import { SecondsToHoursPipe } from '../../core/pipes/seconds-to-hours.pipe';
 
 
 @Component({
   selector: 'app-game-card',
-  imports: [MatMenuModule, MatButtonModule],
+  imports: [MatMenuModule, MatButtonModule, SecondsToHoursPipe],
   templateUrl: './game-card.html',
   styleUrl: './game-card.scss',
 })
@@ -38,6 +39,14 @@ export class GameCardComponent {
 
   getDefaultCover(): string {
     return 'assets/images/no-cover.png';
+  }
+
+  get hasTimeToBeatData(): boolean {
+    return (
+      this.game.hastilySeconds != null ||
+      this.game.normallySeconds != null ||
+      this.game.completelySeconds != null
+    );
   }
 
   getRatingColor(): string {

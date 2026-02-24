@@ -14,6 +14,8 @@ namespace BacklogGames.Bussinnes.Layer
             CreateMap<CreateGameDto,Game>().ReverseMap();
             CreateMap<GameDto,Game>().ReverseMap();
             CreateMap<UserListDTo,UserList>().ReverseMap();
+            CreateMap<GameInfoDto, Game>()
+                .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
 
             // IGDB mappings
             CreateMap<IgdbGameResponseDto, GameInfoDto>()

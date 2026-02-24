@@ -1,3 +1,4 @@
+using BacklogGames.Exceptions;
 using BacklogGames.DataAccess.Layer.Data;
 using BacklogGames.DataAccess.Layer.Repositories.BaseRepository;
 using BacklogGames.DataAccess.Layer.UnitOfWork;
@@ -55,6 +56,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -80,6 +84,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseExceptionHandler();
 
 app.UseCors("AllowAngularApp");
 

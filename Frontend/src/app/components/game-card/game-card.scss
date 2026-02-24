@@ -102,6 +102,40 @@
   }
 }
 
+.time-to-beat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.ttb-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 500;
+
+  .ttb-label {
+    padding: 5px 8px;
+    color: #4b5563;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ttb-value {
+    background: #4a80c4;
+    color: #ffffff;
+    padding: 5px 10px;
+    text-align: center;
+    min-width: 80px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+}
+
 .status-badge {
   display: inline-flex;
   align-items: center;
