@@ -1,0 +1,65 @@
+<div class="login-container">
+
+  <!-- Left: decorative game covers grid -->
+  <div class="login-left">
+    <div class="covers-grid">
+      @for (gradient of coverGradients; track $index) {
+        <div class="cover-item" [style.background]="gradient"></div>
+      }
+    </div>
+    <div class="covers-overlay"></div>
+  </div>
+
+  <!-- Right: login form -->
+  <div class="login-right">
+    <div class="form-wrapper">
+
+      <div class="app-icon-box">
+        <mat-icon>sports_esports</mat-icon>
+      </div>
+
+      <h1 class="login-title">Iniciar sesión</h1>
+      <p class="login-subtitle">Ingresa a tu cuenta para ver tu backlog</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="field-group">
+          <label class="field-label">Usuario</label>
+          <mat-form-field appearance="fill" class="full-width">
+            <input matInput formControlName="username"
+                   placeholder="tu_usuario"
+                   autocomplete="username">
+          </mat-form-field>
+        </div>
+
+        <div class="field-group">
+          <div class="field-row-header">
+            <label class="field-label">Contraseña</label>
+            <a routerLink="/change-password" class="forgot-link">¿Olvidaste tu contraseña?</a>
+          </div>
+          <mat-form-field appearance="fill" class="full-width">
+            <input matInput formControlName="password"
+                   [type]="hidePassword() ? 'password' : 'text'"
+                   placeholder="••••••••"
+                   autocomplete="current-password">
+            <button mat-icon-button matSuffix type="button"
+                    (click)="togglePassword()" tabindex="-1">
+              <mat-icon>{{ hidePassword() ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        @if (errorMessage()) {
+          <div class="error-banner">{{ errorMessage() }}</div>
+        }
+
+        <button mat-flat-button type="submit" class="submit-btn"
+                [disabled]="loading()">
+          {{ loading() ? 'Iniciando sesión...' : 'Iniciar sesión →' }}
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+</div>
