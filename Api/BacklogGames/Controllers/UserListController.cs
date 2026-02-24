@@ -2,7 +2,6 @@
 using BacklogGames.Bussinnes.Layer.DTOs.Game;
 using BacklogGames.Bussinnes.Layer.DTOs.UserList;
 using BacklogGames.Bussinnes.Layer.Services.UserListService;
-using BacklogGames.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +10,6 @@ namespace BacklogGames.Controllers
     [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
-    [TypeFilter(typeof(ExceptionManager))]
     public class UserListController : ControllerBase
     {
         private readonly IUserListService _userListService;
