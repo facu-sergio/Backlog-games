@@ -11,4 +11,8 @@ export interface GameInfo {
   rating?: number;
   gameStatusId?: number;
   gameStatusName?: GameStatus;
+  hastilySeconds?: number | null;
+  normallySeconds?: number | null;
+  completelySeconds?: number | null;
+  timeToBeatCount?: number | null;
 }

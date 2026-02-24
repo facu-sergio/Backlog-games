@@ -22,6 +22,29 @@
       <span class="year" *ngIf="getFormattedYear()">{{ getFormattedYear() }}</span>
     </div>
 
+    @if (hasTimeToBeatData) {
+      <div class="time-to-beat">
+        @if (game.hastilySeconds != null) {
+          <div class="ttb-row">
+            <span class="ttb-label">Rushed</span>
+            <span class="ttb-value">{{ game.hastilySeconds | secondsToHours }}</span>
+          </div>
+        }
+        @if (game.normallySeconds != null) {
+          <div class="ttb-row">
+            <span class="ttb-label">Normal</span>
+            <span class="ttb-value">{{ game.normallySeconds | secondsToHours }}</span>
+          </div>
+        }
+        @if (game.completelySeconds != null) {
+          <div class="ttb-row">
+            <span class="ttb-label">100%</span>
+            <span class="ttb-value">{{ game.completelySeconds | secondsToHours }}</span>
+          </div>
+        }
+      </div>
+    }
+
     <button class="status-badge status-badge--{{ status }}"
             [matMenuTriggerFor]="statusMenu"
             (click)="$event.stopPropagation()">
