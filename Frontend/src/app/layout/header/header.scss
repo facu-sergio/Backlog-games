@@ -45,7 +45,7 @@
       color: #212121;
       line-height: 1.2;
     }
-    
+
     p {
       margin: 0;
       font-size: 13px;
@@ -55,3 +55,22 @@
   }
 }
 
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: #374151;
+  border-color: #d1d5db;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+  }
+}
