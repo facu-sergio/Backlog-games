@@ -1,0 +1,164 @@
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+// ──────────────────────────────────────────────
+// LEFT SIDE  –  decorative game covers
+// ──────────────────────────────────────────────
+.login-left {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+
+  .covers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    height: 100%;
+    width: 100%;
+    gap: 6px;
+    padding: 6px;
+    filter: blur(1px);
+    transform: scale(1.04);
+  }
+
+  .cover-item {
+    border-radius: 6px;
+  }
+
+  .covers-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.45);
+  }
+}
+
+// ──────────────────────────────────────────────
+// RIGHT SIDE  –  login form
+// ──────────────────────────────────────────────
+.login-right {
+  width: 48%;
+  max-width: 560px;
+  min-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 2rem 3rem;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 460px;
+}
+
+// App icon  (blue rounded square with controller icon)
+.app-icon-box {
+  width: 64px;
+  height: 64px;
+  background: #1e40af;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+
+  mat-icon {
+    color: #fff;
+    font-size: 34px;
+    width: 34px;
+    height: 34px;
+  }
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.4rem 0;
+  line-height: 1.2;
+}
+
+.login-subtitle {
+  font-size: 0.95rem;
+  color: #d97706;
+  margin: 0 0 2rem 0;
+}
+
+// ──────────────────────────────────────────────
+// Form fields
+// ──────────────────────────────────────────────
+.field-group {
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1e293b;
+  margin-bottom: 0.3rem;
+}
+
+.field-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.forgot-link {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    color: #1e40af;
+  }
+}
+
+.full-width {
+  width: 100%;
+
+  // Rounder fill style
+  .mat-mdc-form-field-flex {
+    border-radius: 12px !important;
+  }
+}
+
+// ──────────────────────────────────────────────
+// Error banner
+// ──────────────────────────────────────────────
+.error-banner {
+  font-size: 0.875rem;
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 0.65rem 1rem;
+  margin-bottom: 1rem;
+}
+
+// ──────────────────────────────────────────────
+// Submit button
+// ──────────────────────────────────────────────
+.submit-btn {
+  width: 100%;
+  height: 52px;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 10px !important;
+  background-color: #1e40af !important;
+  color: #fff !important;
+  margin-top: 0.5rem;
+
+  &:disabled {
+    opacity: 0.65;
+  }
+}

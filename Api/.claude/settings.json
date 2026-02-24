@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cmd /c \"rmdir /s /q \"\"C:\\\\Users\\\\Facu\\\\Desktop\\\\Backlog-games\\\\Api\\\\TempHashGen\"\"\")",
+      "Bash(dotnet ef migrations add:*)"
+    ]
+  }
+}
