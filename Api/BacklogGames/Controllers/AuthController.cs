@@ -1,6 +1,5 @@
 using BacklogGames.Bussinnes.Layer.DTOs.Auth;
 using BacklogGames.Bussinnes.Layer.Services.AuthService;
-using BacklogGames.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -9,7 +8,6 @@ namespace BacklogGames.Controllers
 {
     [Route("api/v1/auth")]
     [ApiController]
-    [TypeFilter(typeof(ExceptionManager))]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;

@@ -18,8 +18,8 @@
   min-width: 250px !important;
   max-width: 250px !important;
   padding: 1rem;
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
-  background-color: var(--mat-sys-surface);
+  border-right: 1px solid var(--border-color);
+  background-color: var(--bg-sidebar);
   overflow-y: auto;
 }
 
@@ -27,5 +27,5 @@
   padding: 1.5rem;
   overflow-y: auto;
   flex: 1;
-  background-color: var(--mat-sys-background);
+  background-color: var(--bg-primary);
 }

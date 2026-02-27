@@ -1,25 +1,27 @@
 // game-card.component.scss
 .game-card {
-  width: 280px;
-  background: white;
-  border-radius: 16px;
+  width: 220px;
+  background: var(--bg-card);
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
+    border-color: var(--accent);
   }
 }
 
 .cover-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 2 / 3;
   overflow: hidden;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1a1a3e 0%, #2d2b55 100%);
 }
 
 .cover-image {
@@ -31,47 +33,47 @@
 
 .platform-badge {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 12px;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
   font-weight: 600;
-  color: #1f2937;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .rating-badge {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  width: 40px;
-  height: 40px;
+  top: 8px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 12px;
   color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+
   span {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 }
 
 .card-content {
-  padding: 20px;
+  padding: 12px 14px;
 }
 
 .game-title {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 700;
-  color: #1f2937;
-  margin: 0 0 8px 0;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
   line-height: 1.3;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -83,18 +85,18 @@
 .game-meta {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-  font-size: 14px;
-  color: #6b7280;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
 
   .genre {
     font-weight: 500;
-    color: #4b5563;
+    color: var(--text-secondary);
   }
 
   .separator {
-    color: #d1d5db;
+    color: var(--border-color);
   }
 
   .year {
@@ -102,13 +104,47 @@
   }
 }
 
+.time-to-beat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+
+.ttb-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 500;
+
+  .ttb-label {
+    padding: 3px 6px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .ttb-value {
+    background: var(--accent);
+    color: #ffffff;
+    padding: 3px 8px;
+    text-align: center;
+    min-width: 60px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+}
+
 .status-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
   font-weight: 500;
   border: none;
   cursor: pointer;
@@ -119,21 +155,21 @@
   }
 
   &--pendiente {
-    background: #f3f4f6;
-    color: #6b7280;
-    &:hover { background: #e5e7eb; }
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
+    &:hover { background: rgba(255, 255, 255, 0.1); }
   }
 
   &--en-progreso {
-    background: #eff6ff;
-    color: #3b82f6;
-    &:hover { background: #dbeafe; }
+    background: rgba(74, 158, 255, 0.12);
+    color: var(--accent);
+    &:hover { background: rgba(74, 158, 255, 0.2); }
   }
 
   &--completado {
-    background: #f0fdf4;
-    color: #16a34a;
-    &:hover { background: #dcfce7; }
+    background: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
+    &:hover { background: rgba(34, 197, 94, 0.18); }
   }
 }
 
@@ -141,6 +177,6 @@
 @media (max-width: 768px) {
   .game-card {
     width: 100%;
-    max-width: 320px;
+    max-width: 280px;
   }
 }

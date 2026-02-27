@@ -9,15 +9,15 @@
 
   h1 {
     margin: 0 0 8px 0;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--text-primary);
   }
 
   .subtitle {
     margin: 0;
-    font-size: 16px;
-    color: #6b7280;
+    font-size: 14px;
+    color: var(--text-muted);
     font-style: italic;
   }
 }
@@ -36,7 +36,7 @@
   justify-content: center;
   padding: 64px 24px;
   text-align: center;
-  color: #6b7280;
+  color: var(--text-muted);
 
   .empty-icon {
     font-size: 48px;
@@ -59,7 +59,7 @@
     margin-bottom: 24px;
 
     h1 {
-      font-size: 24px;
+      font-size: 22px;
     }
   }
 

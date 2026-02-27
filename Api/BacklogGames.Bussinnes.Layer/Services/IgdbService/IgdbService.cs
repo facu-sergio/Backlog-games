@@ -52,6 +52,32 @@ namespace BacklogGames.Bussinnes.Layer.Services.IgdbService
             return _mapper.Map<List<GameInfoDto>>(igdbGames);
         }
 
+        public async Task<IgdbTimeToBeatResponseDto?> GetTimeToBeatAsync(int igdbGameId)
+        {
+            await EnsureAccessTokenAsync();
+
+            var query = $"fields hastily, normally, completely, count, game_id; where game_id = {igdbGameId};";
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "game_time_to_beats")
+            {
+                Content = new StringContent(query, Encoding.UTF8, "text/plain")
+            };
+
+            request.Headers.Add("Client-ID", _clientId);
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+
+            var response = await _httpClient.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var results = JsonSerializer.Deserialize<List<IgdbTimeToBeatResponseDto>>(content, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            }) ?? new List<IgdbTimeToBeatResponseDto>();
+
+            return results.FirstOrDefault();
+        }
+
         private async Task EnsureAccessTokenAsync()
         {
             if (!string.IsNullOrEmpty(_accessToken) && DateTime.UtcNow < _tokenExpirationTime)
