@@ -1,0 +1,78 @@
+@use '@angular/material' as mat;
+
+// ─── CSS Custom Properties: Dark Mode Theme ───────────────────────────────────
+:root {
+  --bg-primary:    #0f0f0f;
+  --bg-card:       #1a1a2e;
+  --bg-sidebar:    #161625;
+  --bg-header:     #161625;
+
+  --text-primary:   #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --text-muted:     #6b7280;
+
+  --accent:        #4a9eff;
+  --accent-hover:  #6cb0ff;
+  --accent-subtle: rgba(74, 158, 255, 0.12);
+
+  --border-color:  #2a2a2a;
+  --shadow-card:   0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+// ─── Angular Material Theme (Dark) ────────────────────────────────────────────
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      primary:    mat.$azure-palette,
+      tertiary:   mat.$blue-palette,
+      theme-type: dark,
+    ),
+    typography: Roboto,
+    density:    0,
+  ));
+}
+
+// ─── Global Body ──────────────────────────────────────────────────────────────
+body {
+  color-scheme: dark;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+  height: 100%;
+}
+
+// ─── Scrollbar custom ─────────────────────────────────────────────────────────
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: #3a3a4a;
+  border-radius: 3px;
+  &:hover { background: #4a4a5a; }
+}
+
+// ─── Text selection ───────────────────────────────────────────────────────────
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+// ─── Focus visible ────────────────────────────────────────────────────────────
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+// ─── Ocultar label del buscador cuando tiene focus ────────────────────────────
+.search-field.mat-focused {
+  .mdc-floating-label,
+  mat-label {
+    display: none !important;
+  }
+}

@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Cambiar estado</h2>
+
+<mat-dialog-content>
+  <p>¿Estás seguro que querés marcar <strong>{{ data.game.name }}</strong> como <strong>{{ data.statusLabel }}</strong>?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="onConfirm()">Confirmar</button>
+</mat-dialog-actions>

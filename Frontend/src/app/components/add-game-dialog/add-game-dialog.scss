@@ -1,0 +1,39 @@
+.game-preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+
+  .game-cover {
+    width: 60px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .game-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .game-name {
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+
+    .game-year {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.confirm-text {
+  margin: 0;
+  color: var(--text-secondary);
+}

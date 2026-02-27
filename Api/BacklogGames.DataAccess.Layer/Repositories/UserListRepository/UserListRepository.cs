@@ -1,4 +1,6 @@
-﻿using BacklogGames.DataAccess.Layer.Data;
+﻿
+using BacklogGames.DataAccess.Layer.Data;
+using BacklogGames.DataAccess.Layer.Enums;
 using BacklogGames.DataAccess.Layer.Models;
 using BacklogGames.DataAccess.Layer.Repositories.BaseRepository;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,16 @@ namespace BacklogGames.DataAccess.Layer.Repositories.UserListRepository
         public UserListRepository(AppDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<IEnumerable<UserListGame>> GetGamesByListIdAsync(int listId)
+        {
+            return await _context.UserListGames
+                .Include(x => x.Game)
+                .Include(x => x.GameStatus)
+                .Where(x => x.UserListId == listId)
+                .Where(x => x.GameStatusId != (int)GameStatusEnum.Completado)
+                .ToListAsync();
         }
 
         public async Task UpdateNameAsync(int id, string name)

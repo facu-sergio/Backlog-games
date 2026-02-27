@@ -10,11 +10,18 @@ namespace BacklogGames.Bussinnes.Layer.DTOs.Game
     {
         public int Id { get; set; }  // ✅ SÍ tiene Id
         public string Name { get; set; } = string.Empty;
+
+        public int GameStatusId { get; set; }
+        public string GameStatusName { get; set; } = string.Empty;
         public string? CoverUrl { get; set; }
         public long? FirstReleaseDate { get; set; }
         public string? Summary { get; set; }
         public double? Rating { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        public int? HastilySeconds { get; set; }
+        public int? NormallySeconds { get; set; }
+        public int? CompletelySeconds { get; set; }
+        public int? TimeToBeatCount { get; set; }
     }
 }

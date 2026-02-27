@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build:*)",
+      "Bash(dotnet add package:*)",
+      "Bash(cd \"C:\\\\Users\\\\Facu\\\\Desktop\\\\Backlog-games\\\\Api\" && dotnet ef database update --project BacklogGames.DataAccess.Layer --startup-project BacklogGames 2>&1)",
+      "Bash(head:*)",
+      "Bash(netstat -ano | findstr \"LISTEN\" | findstr \":5\" 2>&1)",
+      "Bash(curl:*)",
+      "Bash(psql:*)"
+    ]
+  }
+}

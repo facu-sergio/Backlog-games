@@ -19,6 +19,11 @@ namespace BacklogApp.DataAccess.Layer.Models
 
         public DateTime? UpdatedAt { get; set; }
 
+        public int? HastilySeconds { get; set; }
+        public int? NormallySeconds { get; set; }
+        public int? CompletelySeconds { get; set; }
+        public int? TimeToBeatCount { get; set; }
+
         public ICollection<UserListGame> UserListGames { get; set; } = []; //navigation propertiy
 
     }

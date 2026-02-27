@@ -1,0 +1,68 @@
+<!-- game-card.component.html -->
+<div class="game-card">
+  <div class="cover-container">
+    <img
+      [src]="game.coverUrl || getDefaultCover()"
+      [alt]="game.name"
+      class="cover-image"
+      (error)="$any($event.target).src = getDefaultCover()"
+    />
+
+    <div class="platform-badge">
+      <span>PC</span>
+    </div>
+  </div>
+
+  <div class="card-content">
+    <h3 class="game-title">{{ game.name }}</h3>
+
+    <div class="game-meta">
+      <span class="genre">RPG</span>
+      <span class="separator">•</span>
+      <span class="year" *ngIf="getFormattedYear()">{{ getFormattedYear() }}</span>
+    </div>
+
+    @if (hasTimeToBeatData) {
+      <div class="time-to-beat">
+        @if (game.hastilySeconds != null) {
+          <div class="ttb-row">
+            <span class="ttb-label">Rushed</span>
+            <span class="ttb-value">{{ game.hastilySeconds | secondsToHours }}</span>
+          </div>
+        }
+        @if (game.normallySeconds != null) {
+          <div class="ttb-row">
+            <span class="ttb-label">Normal</span>
+            <span class="ttb-value">{{ game.normallySeconds | secondsToHours }}</span>
+          </div>
+        }
+        @if (game.completelySeconds != null) {
+          <div class="ttb-row">
+            <span class="ttb-label">100%</span>
+            <span class="ttb-value">{{ game.completelySeconds | secondsToHours }}</span>
+          </div>
+        }
+      </div>
+    }
+
+    <button class="status-badge status-badge--{{ status }}"
+            [matMenuTriggerFor]="statusMenu"
+            (click)="$event.stopPropagation()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2"/>
+        <path d="M8 4v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span>{{ getStatusLabel() }}</span>
+    </button>
+
+    <mat-menu #statusMenu="matMenu">
+      @for (option of statusOptions; track option.value) {
+        @if (option.value !== status) {
+          <button mat-menu-item (click)="onStatusChange(option.value)">
+            {{ option.label }}
+          </button>
+        }
+      }
+    </mat-menu>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<h1>{{ listName() }}</h1>
+
+<div class="search-container">
+  <div class="search-wrapper">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Buscar juegos</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControl]="searchControl"
+        [matAutocomplete]="auto"
+        placeholder="Escribe al menos 3 caracteres para buscar...">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayGame" (optionSelected)="onGameSelected($event)">
+        @for (game of searchResults(); track game.igdbId) {
+          <mat-option [value]="game">
+            <div class="game-option">
+              @if (game.coverUrl) {
+                <img [src]="game.coverUrl" [alt]="game.name" class="game-cover">
+              }
+              <div class="game-info">
+                <span class="game-name">{{ game.name }}</span>
+                @if (game.firstReleaseDate) {
+                  <span class="game-year">({{ game.firstReleaseDate * 1000 | date: 'yyyy' }})</span>
+                }
+              </div>
+            </div>
+          </mat-option>
+        }
+        @if (searchControl.value && searchControl.value.length < 3) {
+          <mat-option disabled>
+            <div class="info-message">
+              ℹ️ Escribe al menos 3 caracteres para buscar
+            </div>
+          </mat-option>
+        }
+        @if (searchControl.value && searchControl.value.length >= 3 && searchResults().length === 0) {
+          <mat-option disabled>
+            <div class="info-message">
+              🔍 No se encontraron juegos
+            </div>
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="games-section">
+  <h2>
+    Juegos
+    <span class="count">{{ games().length }}</span>
+  </h2>
+  @if (games().length > 0) {
+    <div class="games-grid">
+      @for (game of games(); track game.id) {
+        <app-game-card [game]="game" [status]="game.gameStatusName ?? 'pendiente'" (statusChange)="onStatusChange(game, $event)"></app-game-card>
+      }
+    </div>
+  } @else {
+    <div class="no-games">
+      No hay juegos en esta lista todavía
+    </div>
+  }
+</div>

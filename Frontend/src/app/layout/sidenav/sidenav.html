@@ -1,0 +1,41 @@
+<!-- Componente sidenav -->
+<mat-nav-list>
+  <a mat-list-item routerLink="/completados" routerLinkActive="active">
+    <mat-icon matListItemIcon>check_circle</mat-icon>
+    <span matListItemTitle>Completados</span>
+  </a>
+
+  <mat-divider></mat-divider>
+
+  <button mat-button class="add-list-btn" (click)="toggleInput()">
+    <mat-icon>add</mat-icon>
+    Agregar lista
+  </button>
+
+  @if (showInput()) {
+    <div class="new-list-input">
+      <input [formControl]="newListName" placeholder="Ej: Shooters FPS" (keyup.enter)="confirmCreate()" />
+      <button class="confirm-btn" (click)="confirmCreate()">
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+  }
+
+  <p class="lists-title">Mis Listas</p>
+
+  @if (userlist().length > 0) {
+    @for (lista of userlist(); track lista.id) {
+      <a mat-list-item
+         [routerLink]="['/juegos', lista.id]"
+         routerLinkActive="active">
+        <mat-icon matListItemIcon>list</mat-icon>
+        <span matListItemTitle>{{ lista.name }}</span>
+        <span matListItemLine>{{ lista.description }}</span>
+      </a>
+    }
+  } @else {
+    <mat-list-item>
+      <span matListItemTitle>Cargando listas...</span>
+    </mat-list-item>
+  }
+</mat-nav-list>

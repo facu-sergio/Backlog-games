@@ -1,29 +1,33 @@
 ﻿using BacklogApp.DataAccess.Layer.Models;
 using BacklogGames.Bussinnes.Layer.DTOs.Game;
-using BacklogGames.Bussinnes.Layer.Services.GameService;
-using BacklogGames.Exceptions;
+using BacklogGames.Bussinnes.Layer.Services.IgdbService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BacklogGames.Controllers
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
-    [TypeFilter(typeof(ExceptionManager))]
     public class GamesController : ControllerBase
     {
-        private readonly IGameService _gameService;
+        private readonly IIgdbService _igdbService;
 
-        public GamesController( IGameService gameService)
+        public GamesController(IIgdbService igdbService)
         {
-            _gameService = gameService;
-        }
-        [HttpPost]
-        public async Task<IActionResult> AddGame([FromBody] CreateGameDto createGameDto)
-        {
-            var game = await _gameService.AddGame(createGameDto);
-            return StatusCode(StatusCodes.Status201Created, game);
+            _igdbService = igdbService;
         }
 
-       
+        [HttpGet("search")]
+        public async Task<ActionResult<List<GameInfoDto>>> SearchGames([FromQuery] string name)
+        {
+            if (string.IsNullOrWhiteSpace(name) || name.Length < 3)
+            {
+                return BadRequest("Search term must be at least 3 characters long.");
+            }
+
+            var games = await _igdbService.SearchGamesByNameAsync(name);
+            return Ok(games);
+        }
     }
 }

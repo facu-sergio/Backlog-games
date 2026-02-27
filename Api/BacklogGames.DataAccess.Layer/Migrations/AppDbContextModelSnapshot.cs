@@ -30,6 +30,9 @@ namespace BacklogGames.DataAccess.Layer.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CompletelySeconds")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CoverUrl")
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
@@ -42,6 +45,9 @@ namespace BacklogGames.DataAccess.Layer.Migrations
                     b.Property<long?>("FirstReleaseDate")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("HastilySeconds")
+                        .HasColumnType("integer");
+
                     b.Property<int>("IgdbId")
                         .HasColumnType("integer");
 
@@ -50,12 +56,18 @@ namespace BacklogGames.DataAccess.Layer.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
+                    b.Property<int?>("NormallySeconds")
+                        .HasColumnType("integer");
+
                     b.Property<double?>("Rating")
                         .HasColumnType("double precision");
 
                     b.Property<string>("Summary")
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
+
+                    b.Property<int?>("TimeToBeatCount")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -110,6 +122,45 @@ namespace BacklogGames.DataAccess.Layer.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BacklogGames.DataAccess.Layer.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            PasswordHash = "$2a$12$FNyKv/SF4zxlBbEnVpdkd.xfpMiCPHJmyghsxCA7/VAtsUQ2ICcUy",
+                            Username = "facu"
+                        });
+                });
+
             modelBuilder.Entity("BacklogGames.DataAccess.Layer.Models.UserList", b =>
                 {
                     b.Property<int>("Id")
@@ -144,6 +195,9 @@ namespace BacklogGames.DataAccess.Layer.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("AddedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("CompletedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("GameStatusId")
