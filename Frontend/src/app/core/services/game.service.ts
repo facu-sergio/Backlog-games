@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { environment } from '../../../enviroments/enviroment';
+import { environment } from '../../../enviroments/environment';
 import { Observable } from 'rxjs';
 import { GameInfo } from '../interfaces/gameInfo.interface';
 
