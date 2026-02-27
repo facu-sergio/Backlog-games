@@ -18,9 +18,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-// Configurar DbContext con PostgreSQL
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Registrar el repositorio genérico y Unit of Work
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -71,7 +68,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularApp", policy =>
     {
         policy.WithOrigins(
-            "https://tu-app.netlify.app",
+            "https://cheerful-custard-b65983.netlify.app",
             "http://localhost:4200")
               .AllowAnyHeader()
               .AllowAnyMethod()
@@ -102,7 +99,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseExceptionHandler();
 
-app.UseCors("AllowFrontend");
+app.UseCors("AllowAngularApp");
 
 app.UseHttpsRedirection();
 
