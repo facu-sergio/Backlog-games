@@ -11,29 +11,41 @@
 .sidenav-title {
   margin: 0 0 0.75rem 0;
   padding: 0.4rem 0;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--font-display);
   color: var(--text-muted);
   border-bottom: 1px solid var(--border-color);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
 }
 
 .lists-title {
-  margin: 8px 4px 2px;
-  font-size: 11px;
+  margin: 12px 4px 4px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  font-family: var(--font-display);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .add-list-btn {
   width: 100%;
   justify-content: flex-start;
   margin-bottom: 4px;
-  color: var(--mat-sys-primary);
-  font-size: 13px;
+  color: var(--accent);
+  font-size: 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+  }
 }
 
 .new-list-input {
@@ -43,19 +55,29 @@
   padding: 4px 4px 8px;
   box-sizing: border-box;
   width: 100%;
+  animation: fadeInUp 0.2s ease;
 
   input {
     flex: 1;
     min-width: 0;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-input);
     border-radius: 8px;
     padding: 6px 10px;
     font-size: 13px;
+    font-family: var(--font-body);
+    color: var(--text-primary);
     outline: none;
     box-sizing: border-box;
+    transition: border-color 0.2s ease;
+
+    &::placeholder {
+      color: var(--text-muted);
+    }
 
     &:focus {
-      border-color: var(--mat-sys-primary);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-subtle);
     }
   }
 
@@ -67,9 +89,15 @@
     height: 32px;
     border-radius: 8px;
     border: none;
-    background: var(--mat-sys-primary);
+    background: var(--accent);
     color: white;
     cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      background: var(--accent-hover);
+      box-shadow: var(--accent-glow);
+    }
 
     mat-icon {
       font-size: 18px;
@@ -85,26 +113,33 @@ mat-nav-list {
   a.mat-mdc-list-item {
     margin-bottom: 2px;
     border-radius: 8px;
-    min-height: 36px;
+    min-height: 38px;
     transition: background-color 0.15s ease;
+    font-family: var(--font-body);
 
     &.active {
       background-color: var(--accent-subtle);
       color: var(--accent);
       border-left: 3px solid var(--accent);
       padding-left: calc(16px - 3px);
+      box-shadow: inset 3px 0 12px rgba(74, 158, 255, 0.08);
 
       mat-icon {
         color: var(--accent);
       }
+
+      .mdc-list-item__primary-text {
+        color: var(--accent);
+        font-weight: 600;
+      }
     }
 
     &:hover:not(.active) {
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: rgba(255, 255, 255, 0.04);
     }
   }
 
   mat-list-item {
-    min-height: 36px;
+    min-height: 38px;
   }
 }

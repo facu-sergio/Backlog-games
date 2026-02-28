@@ -14,17 +14,17 @@
 }
 
 .sidenav {
-  width: 250px !important;
-  min-width: 250px !important;
-  max-width: 250px !important;
-  padding: 1rem;
+  width: 240px !important;
+  min-width: 240px !important;
+  max-width: 240px !important;
+  padding: 1rem 0.75rem;
   border-right: 1px solid var(--border-color);
   background-color: var(--bg-sidebar);
   overflow-y: auto;
 }
 
 .sidenav-content {
-  padding: 1.5rem;
+  padding: 1.75rem 1.5rem;
   overflow-y: auto;
   flex: 1;
   background-color: var(--bg-primary);
