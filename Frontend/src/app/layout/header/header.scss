@@ -1,5 +1,7 @@
 // header.component.scss
 .app-header {
+  width: 100%;
+  overflow: hidden;
   background-color: var(--bg-header);
   border-bottom: 1px solid var(--border-color);
   position: relative;
@@ -32,6 +34,7 @@
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.2s ease;
+  flex: 1;
 
   &:hover {
     opacity: 0.9;
@@ -107,5 +110,38 @@
     background-color: rgba(255, 255, 255, 0.04);
     border-color: rgba(74, 158, 255, 0.4);
     color: var(--accent);
+  }
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .header-content {
+    padding: 8px 16px;
+  }
+
+  .brand {
+    gap: 10px;
+    min-width: 0; // permite que shrinkee sin empujar el logout
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+
+      mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    .brand-text {
+      h1 { font-size: 14px; }
+      p  { display: none; }
+    }
+  }
+
+  .logout-btn .btn-label {
+    display: none;
   }
 }

@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSidenav } from '@angular/material/sidenav';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -12,6 +13,9 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class Header {
   private authService = inject(AuthService);
+
+  @Input() sidenav?: MatSidenav;
+  @Input() isMobile = false;
 
   logout(): void {
     this.authService.logout();

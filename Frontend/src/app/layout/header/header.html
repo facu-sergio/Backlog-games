@@ -1,7 +1,15 @@
 <header class="app-header">
   <div class="header-content">
+    @if (isMobile) {
+      <button mat-icon-button class="menu-btn" (click)="sidenav?.toggle()" aria-label="Menú">
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
+
     <a class="brand" routerLink="/">
-      <mat-icon class="brand-icon">sports_esports</mat-icon>
+      <div class="brand-icon">
+        <mat-icon>sports_esports</mat-icon>
+      </div>
       <div class="brand-text">
         <h1>Game Backlog</h1>
         <p>Organiza tu colección</p>
@@ -10,7 +18,7 @@
 
     <button mat-stroked-button class="logout-btn" (click)="logout()">
       <mat-icon>logout</mat-icon>
-      Cerrar sesión
+      <span class="btn-label">Cerrar sesión</span>
     </button>
   </div>
 </header>

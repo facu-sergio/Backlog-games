@@ -1,7 +1,7 @@
 @if (authService.isAuthenticated()) {
-  <app-header></app-header>
+  <app-header [sidenav]="sidenav" [isMobile]="isMobile()"></app-header>
   <mat-sidenav-container class="sidenav-container" autosize>
-    <mat-sidenav #sidenav mode="side" opened="true" class="sidenav">
+    <mat-sidenav #sidenav [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile()" class="sidenav">
       <app-sidenav></app-sidenav>
     </mat-sidenav>
     <mat-sidenav-content class="sidenav-content">
