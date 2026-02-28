@@ -3,7 +3,7 @@
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  background: #fff;
+  background: var(--bg-primary);
 }
 
 // ──────────────────────────────────────────────
@@ -20,20 +20,39 @@
     grid-template-rows: repeat(4, 1fr);
     height: 100%;
     width: 100%;
-    gap: 6px;
-    padding: 6px;
-    filter: blur(1px);
-    transform: scale(1.04);
+    gap: 8px;
+    padding: 8px;
+    filter: blur(2px) brightness(0.6);
+    transform: scale(1.06);
+    transition: filter 0.5s ease;
   }
 
   .cover-item {
-    border-radius: 6px;
+    border-radius: 8px;
+    opacity: 0.85;
   }
 
+  // Dark gradient overlay — fades into the right side
   .covers-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.45);
+    background: linear-gradient(
+      105deg,
+      rgba(8, 8, 16, 0.15) 0%,
+      rgba(8, 8, 16, 0.5) 60%,
+      rgba(8, 8, 16, 0.95) 100%
+    );
+  }
+
+  // Glow accent from the bottom
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to top, var(--bg-primary) 0%, transparent 100%);
   }
 }
 
@@ -41,51 +60,70 @@
 // RIGHT SIDE  –  login form
 // ──────────────────────────────────────────────
 .login-right {
-  width: 48%;
-  max-width: 560px;
-  min-width: 400px;
+  width: 46%;
+  max-width: 540px;
+  min-width: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: var(--bg-sidebar);
+  border-left: 1px solid var(--border-color);
   padding: 2rem 3rem;
+  position: relative;
+
+  // Top accent line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-brand);
+    opacity: 0.7;
+  }
 }
 
 .form-wrapper {
   width: 100%;
-  max-width: 460px;
+  max-width: 420px;
+  animation: fadeInUp 0.5s ease;
 }
 
-// App icon  (blue rounded square with controller icon)
+// App icon  — gradient square with controller icon
 .app-icon-box {
-  width: 64px;
-  height: 64px;
-  background: #1e40af;
-  border-radius: 18px;
+  width: 56px;
+  height: 56px;
+  background: var(--gradient-brand);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
+  box-shadow: var(--accent-glow);
 
   mat-icon {
     color: #fff;
-    font-size: 34px;
-    width: 34px;
-    height: 34px;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
   }
 }
 
 .login-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-size: 1.8rem;
+  font-weight: 900;
+  font-family: var(--font-display);
+  color: var(--text-primary);
   margin: 0 0 0.4rem 0;
   line-height: 1.2;
+  letter-spacing: -0.01em;
 }
 
 .login-subtitle {
-  font-size: 0.95rem;
-  color: #d97706;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--text-muted);
   margin: 0 0 2rem 0;
 }
 
@@ -93,15 +131,18 @@
 // Form fields
 // ──────────────────────────────────────────────
 .field-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 }
 
 .field-label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #1e293b;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: var(--font-display);
+  color: var(--text-secondary);
   margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .field-row-header {
@@ -112,22 +153,22 @@
 }
 
 .forgot-link {
-  font-size: 0.8rem;
-  color: #6b7280;
+  font-size: 0.78rem;
+  font-family: var(--font-body);
+  color: var(--text-muted);
   text-decoration: none;
+  transition: color 0.2s ease;
 
   &:hover {
-    text-decoration: underline;
-    color: #1e40af;
+    color: var(--accent);
   }
 }
 
 .full-width {
   width: 100%;
 
-  // Rounder fill style
   .mat-mdc-form-field-flex {
-    border-radius: 12px !important;
+    border-radius: 10px !important;
   }
 }
 
@@ -136,9 +177,10 @@
 // ──────────────────────────────────────────────
 .error-banner {
   font-size: 0.875rem;
-  color: #dc2626;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  font-family: var(--font-body);
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.25);
   border-radius: 8px;
   padding: 0.65rem 1rem;
   margin-bottom: 1rem;
@@ -149,16 +191,41 @@
 // ──────────────────────────────────────────────
 .submit-btn {
   width: 100%;
-  height: 52px;
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  height: 50px;
+  font-size: 0.9rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   border-radius: 10px !important;
-  background-color: #1e40af !important;
+  background: var(--gradient-brand) !important;
   color: #fff !important;
   margin-top: 0.5rem;
+  transition: box-shadow 0.25s ease, opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    box-shadow: var(--accent-glow);
+    opacity: 0.92;
+  }
 
   &:disabled {
-    opacity: 0.65;
+    opacity: 0.5;
+  }
+}
+
+// ──────────────────────────────────────────────
+// Responsive
+// ──────────────────────────────────────────────
+@media (max-width: 768px) {
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    border-left: none;
+    padding: 2rem 1.5rem;
   }
 }
