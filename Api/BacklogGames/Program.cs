@@ -77,8 +77,11 @@ builder.Services.AddCors(options =>
 });
 
 //Configuracion para Render
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+if (builder.Environment.IsProduction())
+{
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
 
 //Connection String con variable de entorno
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
@@ -97,6 +100,9 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
 }
+
+//EP para testar que este vivo la api
+app.MapGet("/health", () => Results.Ok("alive"));
 
 
 // Configure the HTTP request pipeline.
